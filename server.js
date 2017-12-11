@@ -16,28 +16,28 @@ app.get('/', (req, res) => {
 
 //Search from bing
 app.get('/bingimgscrap', (req, res) => {
-    return ImageScrapper.bingImageScrapper(req.query.keyword, 15).then((resp) => {
+    return ImageScrapper.bingImageScrapper(req.query.keyword, req.query.number).then((resp) => {
         res.send(resp);
     })
 });
 
 //Search from google
 app.get('/googleimgscrap', (req, res) => {
-    return ImageScrapper.googleImageScrapper(req.query.keyword, 15).then((resp) => {
+    return ImageScrapper.googleImageScrapper(req.query.keyword, req.query.number).then((resp) => {
         res.send(resp);
     })
 });
 
 //search from yahoo
 app.get('/yahooimgscrap', (req, res) => {
-    return ImageScrapper.yahooImageScrapper(req.query.keyword, 15).then((resp) => {
+    return ImageScrapper.yahooImageScrapper(req.query.keyword, req.query.number).then((resp) => {
         res.send(resp);
     })
 });
 
 // search from pics.
 app.get('/picsimgscrap', (req, res) => {
-    return ImageScrapper.picsImageScrapper(req.query.keyword, 15).then((resp) => {
+    return ImageScrapper.picsImageScrapper(req.query.keyword, req.query.number).then((resp) => {
         res.send(resp);
     }).catch((err) => {
         throw new Error(err);
