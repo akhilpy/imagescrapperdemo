@@ -18,14 +18,6 @@ class Errors extends Error {
         this._message = message;
     };
 
-    sendError() {
-        return {
-            code: this._code,
-            message: this._message,
-            isError: true
-        }
-    }
-
     /**
      * Set message for error
      */
