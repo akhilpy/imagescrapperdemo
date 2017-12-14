@@ -4,13 +4,20 @@ const express = require('express'),
 const app = module.exports = express();
 const fileUpload = require('express-fileupload');
 const ImageScrapper = require('./app/controllers/ImageScrapper');
+const ImageUploader = require('./app/controllers/ImageUploader');
 const ErrorHandler = require('./app/handlers/ErrorHandler');
 const errorHandler = new ErrorHandler().errorHandler;
-
+const bodyParser = require('body-parser');
 app.use('/', express.static(path.join(__dirname, 'app')));
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 app.use(fileUpload());
+
 app.get('/', (req, res) => {
     res.send('server online.');
 });
@@ -44,6 +51,15 @@ app.get('/picsimgscrap', (req, res, next) => {
     }).catch(next);
 });
 
+//Upload image top server.
+app.post('/uploadimage', (req, res, next) => {
+    ImageUploader.saveImage(req.body.url)
+        .then((resp) => {
+            res.send('success');
+        });
+});
+
+//Global error handler.
 app.use(errorHandler);
 /**
 * Start Server
